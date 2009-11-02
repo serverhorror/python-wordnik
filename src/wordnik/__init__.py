@@ -12,13 +12,36 @@ try:
 except ImportError:
     import simplejson as json
 import httplib
-
+import cmd
 from optparse import OptionParser
 from xml.etree import ElementTree
 from pprint import pprint
 
 class RestfullError(Exception):
     pass
+
+class Definition(object):
+
+    @classmethod
+    def json_loads(cls, json):
+        s = json
+        return cls(header_id = s[u"@headerId"],
+                   id_ = s[u"@id"],
+                   def_txt_summary = s[u"defTxtSummary"],
+                   headword = s[u"headword"],
+                   headword_id = s[u"headwordId"],
+                   part_of_speech = s[u"partOfSpeech"],
+                   pos = s[u"pos"]
+                   )
+
+    def __init__(self, header_id, id_, def_txt_summary, headword, headword_id, part_of_speech, pos):
+        self.header_id = header_id
+        self.id_ = id_
+        self.def_txt_summary = def_txt_summary
+        self.headword = headword
+        self.headword_id = headword_id
+        self.part_of_speech = part_of_speech
+        self. pos = pos
 
 class Wordnik(object):
 
@@ -40,7 +63,7 @@ class Wordnik(object):
             retval = json.loads(result_string)
         elif self.format == Wordnik.FORMAT_XML:
             retval = ElementTree.fromstring(result_string)
-        if result.status != 200:
+        if result.status != httplib.OK:
             try:
                 raise RestfullError(retval["message"])
             except (TypeError, ), error:
@@ -263,6 +286,35 @@ def main(args):
     for arg in args:
         pprint(wordnik.word(arg))
 
+class CmdInterface(cmd.Cmd):
+
+    prompt = "wordnik: "
+
+    def do_api(self, api_key):
+        self.wordnik = Wordnik(api_key=api_key)
+
+    def do_word(self, word):
+        print self.wordnik.word(word)
+
+    def do_definitions(self, word):
+        print self.wordnik.definitions(word)
+
+    def do_frequency(self, word):
+        print self.wordnik.frequency(word)
+
+    def do_examples(self, word):
+        print self.wordnik.examples(word)
+
+    def do_suggest(self, word):
+        print self.wordnik.suggest(word)
+
+    def do_wordoftheday(self, word):
+        print self.wordnik.word_of_the_day()
+
+    def do_EOF(self, line):
+        """Exit the command line utility"""
+        print
+        return True
 
 if __name__ == "__main__":
     main(sys.argv)
