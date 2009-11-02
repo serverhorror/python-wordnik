@@ -23,15 +23,19 @@ class RestfullError(Exception):
 class Definition(object):
 
     @classmethod
-    def json_loads(cls, json):
-        s = json
-        return cls(header_id = s[u"@headerId"],
-                   id_ = s[u"@id"],
-                   def_txt_summary = s[u"defTxtSummary"],
-                   headword = s[u"headword"],
-                   headword_id = s[u"headwordId"],
-                   part_of_speech = s[u"partOfSpeech"],
-                   pos = s[u"pos"]
+    def json_loads(cls, json_string):
+        s = json.loads(json_string)
+        return cls.from_dict(s)
+
+    @classmethod
+    def from_dict(cls, dict_):
+        return cls(header_id = dict_.get(u"@headerId", None),
+                   id_ = dict_.get(u"@id", None),
+                   def_txt_summary = dict_.get(u"defTxtSummary", None),
+                   headword = dict_.get(u"headword", None),
+                   headword_id = dict_.get(u"headwordId", None),
+                   part_of_speech = dict_.get(u"partOfSpeech", None),
+                   pos = dict_.get(u"pos", None),
                    )
 
     def __init__(self, header_id, id_, def_txt_summary, headword, headword_id, part_of_speech, pos):
@@ -42,6 +46,12 @@ class Definition(object):
         self.headword_id = headword_id
         self.part_of_speech = part_of_speech
         self. pos = pos
+
+    def __repr__(self):
+        return u"<%s: %s>" % (self.__class__, self.headword, )
+
+    def __str__(self):
+        return u"%s: %s" % (self.headword, self.def_txt_summary, )
 
 class Wordnik(object):
 
