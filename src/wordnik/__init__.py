@@ -7,7 +7,10 @@ This currently module presents a thin wrapper around the wordnik API.
 BASE_HOST = u"api.wordnik.com"
 
 import sys
-import simplejson
+try:
+    import json
+except ImportError:
+    import simplejson as json
 import httplib
 
 from optparse import OptionParser
@@ -34,7 +37,7 @@ class Wordnik(object):
         result = con.getresponse()
         result_string = result.read()
         if self.format == Wordnik.FORMAT_JSON:
-            retval = simplejson.loads(result_string)
+            retval = json.loads(result_string)
         elif self.format == Wordnik.FORMAT_XML:
             retval = ElementTree.fromstring(result_string)
         if result.status != 200:
