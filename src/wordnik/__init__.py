@@ -258,9 +258,7 @@ def main(args):
     except (NameError, ), error:
         print error
     for arg in args:
-        pprint("REQUESTING %s START" % (arg, ))
         pprint(wordnik.word(arg))
-        pprint("REQUESTING %s END" % (arg, ))
 
 
 if __name__ == "__main__":
