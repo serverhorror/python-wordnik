@@ -33,7 +33,7 @@ Output abbreviated for readability
 
     >>> from pprint import pprint
     >>> import wordnik
-    >>> w = wordnik.Wordnik(api_key="8b9cc57462bd346679006006b5d052aba7f537150279d94a7")
+    >>> w = wordnik.Wordnik(api_key="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
     >>> pprint(w.word("cat"))
     {'id': 27568, 'word': 'cat'}
     >>> pprint(w.definitions("cat"))
