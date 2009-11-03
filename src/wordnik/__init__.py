@@ -267,6 +267,19 @@ class Wordnik(object):
         request_uri = "/api/wordoftheday.%s" % (self.format, )
         return self._make_request(request_uri)
 
+    def random_word(self):
+        """Fetch a random word from the Alpha Corpus.
+
+        >>> import wordnik
+        >>> k = "..."
+        >>> w = wordnik.Wordnik(api_key=k)
+        >>> w.random_word()
+        {'word': 'smatch', 'id': 96660}
+        >>>
+        """
+        request_uri = "/api/words.%s/randomWord" % (self.format, )
+        return self._make_request(request_uri)
+
 
 def main(args):
 
