@@ -16,8 +16,36 @@ Bootstrapping
     Installing python.
     Generated interpreter '...bin/python'.
 
-Generating documentation
-========================
+Generating the REST API documentation
+=====================================
+
+::
+
+	~/python-wordnik$ cd api_docs/
+	~/python-wordnik/api_docs$ make html
+	sphinx-build -b html -d build/doctrees   source build/html
+	Making output directory...
+	Running Sphinx v0.6.3
+	loading pickled environment... not found
+	building [html]: targets for 1 source files that are out of date
+	updating environment: 1 added, 0 changed, 0 removed
+	reading sources... [100%] index
+	looking for now-outdated files... none found
+	pickling environment... done
+	checking consistency... done
+	preparing documents... done
+	writing output... [100%] index
+	writing additional files... genindex search
+	copying static files... done
+	dumping search index... done
+	dumping object inventory... done
+	build succeeded.
+	
+	Build finished. The HTML pages are in build/html.
+
+
+Generating Python API documentation
+===================================
 
 Just run ``epydoc --html -o doc src/wordnik``.
 
