@@ -66,7 +66,7 @@ class Wordnik(object):
         con = httplib.HTTPConnection(BASE_HOST)
         headers = {"api_key": self.api_key}
         headers.update(additional_headers)
-        con.request("GET", request_uri, headers={"api_key": self.api_key})
+        con.request("GET", request_uri, headers=headers)
         result = con.getresponse()
         result_string = result.read()
         if self.format == Wordnik.FORMAT_JSON:
@@ -333,6 +333,9 @@ class CmdInterface(cmd.Cmd):
 
     def do_wordoftheday(self, word):
         print self.wordnik.word_of_the_day()
+
+    def do_random(self):
+        print self.wordnik.random_word()
 
     def do_EOF(self, line):
         """Exit the command line utility"""
