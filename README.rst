@@ -1,3 +1,5 @@
+see http://python-wordnik.rtfd.org/ to read the docs...
+
 Bootstrapping
 =============
 
