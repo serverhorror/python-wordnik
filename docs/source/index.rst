@@ -11,6 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+another new paragraph...
+
 RESTfull API
 ============
 
